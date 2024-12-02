@@ -1,0 +1,60 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "run queue_broker_service",
+			"type": "shell",
+			"command": "go",
+			"args": ["run", "main.go", "--port=8080", "--pprof-port=6060"],
+			"options": {
+				"cwd": "${workspaceFolder}/queue_broker_service",
+				"shell": {
+					"executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+					"args": ["-c"]
+				}
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+			"detail": "Запуск queue_broker_service с поддержкой pprof"
+		},
+		{
+			"label": "profile queue_broker_service",
+			"type": "shell",
+			"command": "curl",
+			"args": [
+				"http://localhost:6060/debug/pprof/profile",
+				"--output",
+				"cpu_profile.pprof"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/queue_broker_service",
+				"shell": {
+					"executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+					"args": ["-c"]
+				}
+			},
+			"group": "test",
+			"problemMatcher": [],
+			"detail": "Сохранение CPU-профиля через pprof"
+		},
+		{
+			"label": "analyze cpu profile",
+			"type": "shell",
+			"command": "go",
+			"args": ["tool", "pprof", "-http=:8081", "cpu_profile.pprof"],
+			"options": {
+				"cwd": "${workspaceFolder}/queue_broker_service",
+				"shell": {
+					"executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+					"args": ["-c"]
+				}
+			},
+			"group": "test",
+			"problemMatcher": [],
+			"detail": "Анализ CPU-профиля в графическом интерфейсе"
+		}
+	]
+}

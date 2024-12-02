@@ -1,1 +1,1 @@
-# mentor_golang_training
+# mentor-training
